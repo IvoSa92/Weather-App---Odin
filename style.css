@@ -1,0 +1,102 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-container {
+  width: 80vw;
+  height: 90vh;
+  background-color: #beccff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-div {
+  font-size: 1.5rem;
+  opacity: 0.2;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 2rem;
+  margin-top: 0rem;
+  color: white;
+  font-family: Rubik;
+}
+
+.weather-logo img {
+  width: 7rem;
+}
+
+.weather-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  opacity: 0.9;
+  width: 80%;
+  height: fit-content;
+  max-width: 40rem;
+  max-height: 15rem;
+  background-color: #2b4175;
+  border-radius: 30px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 1rem;
+  font-family: Rubik;
+  text-align: center;
+}
+
+.section-part {
+  width: 20%;
+}
+
+.weather-status {
+  font-size: 2rem;
+  color: white;
+  margin-top: 2rem;
+}
+
+.temperatur {
+  font-size: 6rem;
+  color: #e5edf8;
+  font-family: Rubik;
+  margin-bottom: 1rem;
+}
+
+.three-day-forecast {
+  width: 80%;
+  background-color: #7c9fd0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+.three-day-forecast div img {
+  width: 2.5rem;
+}
+
+.three-day-forecast div {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

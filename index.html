@@ -5,23 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
     <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
     <div class="container">
       <div class="weather-container">
-        <div class="date-div"></div>
-        <div class="title"></div>
-        <div class="weather-logo"></div>
-        <div class="weather-status"></div>
-        <div class="weather-details-container">
-          <div class="wind-csection"></div>
-          <div class="humidity-section"></div>
-          <div class="feeling-section"></div>
+        <div class="date-div">October 16, 2024</div>
+        <div class="title">Waldshut - Tiengen</div>
+        <div class="weather-logo">
+          <img src="./media/sonne.png" alt="weather-logo" />
         </div>
-        <div class="3day-forecast">
-          <div class="day1-forecast"></div>
-          <div class="day2-forecast"></div>
-          <div class="day3-forecast"></div>
+        <div class="weather-status">Sonnig klar</div>
+        <div class="temperatur">22°C</div>
+        <div class="weather-details-container">
+          <div class="wind-section section">
+            <p class="wind-title section-part">Wind</p>
+            <img src="./media/wind.png" alt="" class="wind-logo section-part" />
+            <p class="wind-speed section-part">3.1 mp/h</p>
+          </div>
+          <div class="rain-section section">
+            <p class="rain-title section-part">Rain</p>
+            <img src="./media/rain.png" alt="" class="rain-logo section-part" />
+            <p class="percentage section-part">79%</p>
+          </div>
+          <div class="feeling-section section">
+            <p class="feeling-title section-part">Feeling</p>
+            <img
+              src="./media/feeling.png"
+              alt=""
+              class="feeling-logo section-part" />
+            <p class="celsius section-part">22°C</p>
+          </div>
+        </div>
+        <div class="three-day-forecast">
+          <div class="day1-forecast">
+            <p class="forecast-title">Cloudy</p>
+            <img src="./media/sonne.png" alt="" class="forecast-logo day-one" />
+            <p class="forecast-temp">19°C</p>
+          </div>
+          <div class="day2-forecast">
+            <p class="forecast-title">Sunny</p>
+            <img src="./media/sonne.png" alt="" class="forecast-logo day-two" />
+            <p class="forecast-temp">25°C</p>
+          </div>
+          <div class="day3-forecast">
+            <p class="forecast-title">Rainy</p>
+            <img
+              src="./media/sonne.png"
+              alt=""
+              class="forecast-logo day-three" />
+            <p class="forecast-temp">11°C</p>
+          </div>
         </div>
       </div>
       <footer>by IvoSa</footer>
