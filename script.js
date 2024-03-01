@@ -35,28 +35,79 @@ const dayThreeTemp = document.querySelector(".day-three-temp");
 
 // function for API interaction
 
-const baseUrl =
-  "https://api.weatherapi.com/v1/current.json?key=dd40ce473c9a47f48e6175320242802&q=london";
+const userLocation = "Berlin";
+const forecast = "&days=3";
 
+const baseUrl = `https://api.weatherapi.com/v1/current.json?key=dd40ce473c9a47f48e6175320242802&q=${userLocation}`;
+const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=dd40ce473c9a47f48e6175320242802&q=${userLocation}&days=3`;
 async function getWeatherData() {
   try {
     const response = await fetch(baseUrl);
     const data = await response.json();
-    console.log(data);
 
-    updateUi(data);
+    const responseForecast = await fetch(forecastUrl);
+    const forecastData = await responseForecast.json();
+    //console.log(data);
+    console.log(forecastData.forecast.forecastday[0].day.avgtemp_c);
+
+    updateUi(data, forecastData);
   } catch (error) {
     console.error("Error in loading weather data", error);
   }
 }
 
-function updateUi(data) {}
-const date = new Date();
-const formattedDate = date.toLocaleDateString("de-DE", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-dateInput.innerHTML = formattedDate;
 getWeatherData();
+
+function updateUi(data, forecastData) {
+  //date input
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("de-DE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const weekDays = ["Mon.", "Tue.", "Wed.", "Thu.", "Fri", "Sat", "Sun"];
+
+  //location input
+  dateInput.innerHTML = formattedDate;
+  locationInput.innerHTML = data.location.name;
+
+  //weather logo
+  //weatherLogoInput.src = `https:${data.current.condition.icon}`;
+  //console.log(weatherLogoInput.src);
+
+  // condition text
+  weatherDescriptionInput.innerHTML = data.current.condition.text;
+
+  //temperature
+  temperatureInput.innerHTML = `${data.current.temp_c}°`;
+
+  // wind speed
+  windSpeedInput.innerHTML = `${data.current.wind_kph} km/h`;
+
+  // rain chance
+  rainInput.innerHTML = `${forecastData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
+  //feeling temp
+  feelingInput.innerHTML = `${data.current.feelslike_c}°C`;
+
+  //forecast day 1
+  dayOneInput.innerHTML = weekDays[date.getDay() - 1];
+  conditionDayOne.innerHTML = `${forecastData.forecast.forecastday[0].day.condition.text}`;
+  //logoDayOne=
+  dayOneTemp.innerHTML = `${forecastData.forecast.forecastday[0].day.avgtemp_c}°C`;
+  //forecast day 2
+  dayTwoInput.innerHTML = weekDays[date.getDay()];
+  conditionDayTwo.inne;
+  //logoDayTwo=
+  rHTML = `${forecastData.forecast.forecastday[1].day.condition.text}`;
+  dayTwoTemp.innerHTML = `${forecastData.forecast.forecastday[1].day.avgtemp_c}°C`;
+
+  //forecast day 3
+  dayThreeInput.innerHTML = weekDays[date.getDay() + 1];
+  conditionDayThree.innerHTML = `${forecastData.forecast.forecastday[2].day.condition.text}`;
+  //logoDayThree=
+
+  dayThreeTemp.innerHTML = `${forecastData.forecast.forecastday[2].day.avgtemp_c}°C`;
+}
