@@ -2,6 +2,7 @@
 
 // API Input Elements
 
+const dateInput = document.querySelector(".date-div");
 const locationInput = document.querySelector(".title");
 const weatherLogoInput = document.querySelector(".weather-logo");
 const weatherDescriptionInput = document.querySelector(".weather-status");
@@ -24,4 +25,10 @@ const conditionDayOne = document.querySelector(".condition-day-one");
 const conditionDayTwo = document.querySelector(".condition-day-two");
 const conditionDayThree = document.querySelector(".condition-day-three");
 
-const
+const logoDayOne = document.querySelector(".day-one-logo");
+const logoDayTwo = document.querySelector(".day-two-logo");
+const logoDayThree = document.querySelector(".day-three-logo");
+
+const dayOneTemp = document.querySelector(".day-one-temp");
+const dayTwoTemp = document.querySelector(".day-two-temp");
+const dayThreeTemp = document.querySelector(".day-three-temp");
