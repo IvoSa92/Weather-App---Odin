@@ -32,3 +32,31 @@ const logoDayThree = document.querySelector(".day-three-logo");
 const dayOneTemp = document.querySelector(".day-one-temp");
 const dayTwoTemp = document.querySelector(".day-two-temp");
 const dayThreeTemp = document.querySelector(".day-three-temp");
+
+// function for API interaction
+
+const baseUrl =
+  "https://api.weatherapi.com/v1/current.json?key=dd40ce473c9a47f48e6175320242802&q=london";
+
+async function getWeatherData() {
+  try {
+    const response = await fetch(baseUrl);
+    const data = await response.json();
+    console.log(data);
+
+    updateUi(data);
+  } catch (error) {
+    console.error("Error in loading weather data", error);
+  }
+}
+
+function updateUi(data) {}
+const date = new Date();
+const formattedDate = date.toLocaleDateString("de-DE", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+dateInput.innerHTML = formattedDate;
+getWeatherData();
