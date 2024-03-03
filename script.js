@@ -44,20 +44,26 @@ searchInput.addEventListener("input", function (e) {
 });
 
 searchButton.addEventListener("click", () => {
-  getWeatherData(searchInput.value);
-  resultsContainer.innerHTML = "";
-  searchInput.value = "";
+  if (searchInput.value) {
+    getWeatherData(searchInput.value);
+    resultsContainer.innerHTML = "";
+    searchInput.value = "";
+  } else {
+    searchInput.placeholder = "No entry";
+  }
 });
 
 async function searchLocation(inputValue) {
   const searchUrl = `https://api.weatherapi.com/v1/search.json?key=dd40ce473c9a47f48e6175320242802&q=${inputValue}`;
 
-  try {
-    const response = await fetch(searchUrl);
-    const data = await response.json();
-    displayResults(data);
-  } catch (error) {
-    console.error("Cant find location data");
+  if (searchInput.value) {
+    try {
+      const response = await fetch(searchUrl);
+      const data = await response.json();
+      displayResults(data);
+    } catch (error) {
+      console.log("Cant find location data");
+    }
   }
 }
 
@@ -68,9 +74,12 @@ function displayResults(data) {
     const locationElement = document.createElement("button");
     locationElement.classList.add("result-button");
     locationElement.textContent = location.name;
-    //locationElement.addEventListener("click", () => {
-    // handleResultClick(location);
-    //});
+    locationElement.addEventListener("click", (e) => {
+      let location = e.target.innerHTML;
+      getWeatherData(location);
+      resultsContainer.innerHTML = "";
+      searchInput.value = "";
+    });
     resultsContainer.appendChild(locationElement);
   });
 }
@@ -143,3 +152,7 @@ function updateUi(data, forecastData) {
   logoDayThree.src = `https:${forecastData.forecast.forecastday[3].day.condition.icon}`;
   dayThreeTemp.innerHTML = `${forecastData.forecast.forecastday[3].day.avgtemp_c}°C`;
 }
+
+getWeatherData("Berlin");
+
+// Enter taste als input für search bar einsetzen
