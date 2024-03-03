@@ -1,7 +1,9 @@
 // DOM Elements
 
 // API Input Elements
-
+const searchInput = document.querySelector(".search-bar");
+const resultsContainer = document.querySelector(".search-results");
+const searchButton = document.querySelector(".submit-search");
 const dateInput = document.querySelector(".date-div");
 const locationInput = document.querySelector(".title");
 const weatherLogoInput = document.querySelector(".weather-logo");
@@ -35,28 +37,63 @@ const dayThreeTemp = document.querySelector(".day-three-temp");
 
 // function for API interaction
 
-const userLocation = "Berlin";
-const forecast = "&days=3";
+searchInput.addEventListener("input", function (e) {
+  setTimeout(() => {
+    searchLocation(searchInput.value);
+  }, 500);
+});
 
-const baseUrl = `https://api.weatherapi.com/v1/current.json?key=dd40ce473c9a47f48e6175320242802&q=${userLocation}`;
-const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=dd40ce473c9a47f48e6175320242802&q=${userLocation}&days=4`;
-async function getWeatherData() {
+searchButton.addEventListener("click", () => {
+  getWeatherData(searchInput.value);
+  resultsContainer.innerHTML = "";
+  searchInput.value = "";
+});
+
+async function searchLocation(inputValue) {
+  const searchUrl = `https://api.weatherapi.com/v1/search.json?key=dd40ce473c9a47f48e6175320242802&q=${inputValue}`;
+
+  try {
+    const response = await fetch(searchUrl);
+    const data = await response.json();
+    displayResults(data);
+  } catch (error) {
+    console.error("Cant find location data");
+  }
+}
+
+function displayResults(data) {
+  resultsContainer.innerHTML = "";
+
+  data.forEach((location) => {
+    const locationElement = document.createElement("button");
+    locationElement.classList.add("result-button");
+    locationElement.textContent = location.name;
+    //locationElement.addEventListener("click", () => {
+    // handleResultClick(location);
+    //});
+    resultsContainer.appendChild(locationElement);
+  });
+}
+
+function handleResultClick(location) {
+  getWeatherData(location.name);
+}
+
+async function getWeatherData(location) {
+  let baseUrl = `https://api.weatherapi.com/v1/current.json?key=dd40ce473c9a47f48e6175320242802&q=${location}`;
+  let forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=dd40ce473c9a47f48e6175320242802&q=${location}&days=4`;
+
   try {
     const response = await fetch(baseUrl);
     const data = await response.json();
 
     const responseForecast = await fetch(forecastUrl);
     const forecastData = await responseForecast.json();
-    //console.log(data);
-    console.log(forecastData.forecast.forecastday[1].day.condition.icon);
-
     updateUi(data, forecastData);
   } catch (error) {
     console.error("Error in loading weather data", error);
   }
 }
-
-getWeatherData();
 
 function updateUi(data, forecastData) {
   //date input
@@ -73,6 +110,9 @@ function updateUi(data, forecastData) {
   //location input
   dateInput.innerHTML = formattedDate;
   locationInput.innerHTML = data.location.name;
+  //current weather condition logo
+  weatherLogoInput.src = `https:${data.current.condition.icon}`;
+
   // condition text
   weatherDescriptionInput.innerHTML = data.current.condition.text;
   //temperature
