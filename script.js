@@ -9,6 +9,9 @@ const locationInput = document.querySelector(".title");
 const weatherLogoInput = document.querySelector(".weather-logo");
 const weatherDescriptionInput = document.querySelector(".weather-status");
 const temperatureInput = document.querySelector(".temperature");
+const container = document.querySelector(".container");
+const weatherContainer = document.querySelector(".weather-container");
+const weatherSections = document.querySelector(".weather-sections");
 
 //weather details container
 const weatherDetailsContainer = document.querySelector(
@@ -43,7 +46,15 @@ searchInput.addEventListener("input", function (e) {
   }, 500);
 });
 
-searchButton.addEventListener("click", () => {
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    searchForInput();
+  }
+});
+
+searchButton.addEventListener("click", searchForInput);
+
+function searchForInput() {
   if (searchInput.value) {
     getWeatherData(searchInput.value);
     resultsContainer.innerHTML = "";
@@ -51,7 +62,7 @@ searchButton.addEventListener("click", () => {
   } else {
     searchInput.placeholder = "No entry";
   }
-});
+}
 
 async function searchLocation(inputValue) {
   const searchUrl = `https://api.weatherapi.com/v1/search.json?key=dd40ce473c9a47f48e6175320242802&q=${inputValue}`;
@@ -155,4 +166,15 @@ function updateUi(data, forecastData) {
 
 getWeatherData("Berlin");
 
-// Enter taste als input für search bar einsetzen
+function buildPage() {
+  weatherContainer.style.height = "90vh";
+  weatherContainer.style.width = "80vw";
+
+  setTimeout(() => {
+    weatherSections.style.display = "flex";
+    weatherContainer.style.minHeight = "790px";
+    weatherContainer.style.minWidth = "450px";
+  }, 500);
+}
+
+buildPage();
